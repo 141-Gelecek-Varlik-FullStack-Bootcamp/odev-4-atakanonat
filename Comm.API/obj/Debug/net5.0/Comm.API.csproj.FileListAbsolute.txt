@@ -156,3 +156,4 @@
 /Users/atakanonat/dev/C#/odev-4/Comm.API/obj/Debug/net5.0/Comm.API.pdb
 /Users/atakanonat/dev/C#/odev-4/Comm.API/obj/Debug/net5.0/Comm.API.genruntimeconfig.cache
 /Users/atakanonat/dev/C#/odev-4/Comm.API/obj/Debug/net5.0/Razor/Views/Product/ProductList.cshtml.g.cs
+/Users/atakanonat/dev/C#/odev-4/Comm.API/obj/Debug/net5.0/Razor/Views/Product/GetProduct.cshtml.g.cs

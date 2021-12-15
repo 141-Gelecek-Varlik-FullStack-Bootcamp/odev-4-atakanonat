@@ -1,21 +1,27 @@
+@using Comm.Model
+@using Comm.Model.Product
 @{
+    var Products = (List<Common<Product>>)ViewBag.Products;
     ViewData["title"] = "Product List";
 }
 
 <body>
     <h1>Product List</h1>
-    <ul>
-        <li>
-            <h2>Product:</h2>
-        </li>
-        <li>
-            <h2>Description:</h2>
-        </li>
-        <li>
-            <h2>Stock Count:</h2>
-        </li>
-        <li>
-            <h2>Price:</h2>
-        </li>
-    </ul>
+    <br />
+    @foreach (var product in Products)
+    {
+        <ul>
+            <p><b>Product: </b>@product.Entity.Name</p>
+            <li>
+                <p>Description:@product.Entity.Description</p>
+            </li>
+            <li>
+                <p>Stock Count:@product.Entity.Stock</p>
+            </li>
+            <li>
+                <p>Price:@product.Entity.Price</p>
+            </li>
+        </ul>
+        <br />
+    }
 </body>

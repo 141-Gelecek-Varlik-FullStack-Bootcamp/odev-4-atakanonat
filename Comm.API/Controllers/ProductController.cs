@@ -22,17 +22,20 @@ namespace Comm.API.Controllers
         }
 
         [HttpGet("/[controller]")]
-        public List<Common<Model.Product.Product>> ProductList([FromQuery] PaginationParameters pagination)
+        public IActionResult ProductList([FromQuery] PaginationParameters pagination
+        , [FromQuery] string sortBy)
         {
-            var result = productService.GetProducts(pagination);
-            return result;
+            var result = productService.GetProducts(pagination, sortBy);
+            ViewBag.Products = result;
+            return View();
         }
 
         [HttpGet("/[controller]/{id}")]
-        public Common<Model.Product.Product> GetProduct(int id)
+        public IActionResult GetProduct(int id)
         {
             var result = productService.Get(id);
-            return result;
+            ViewBag.Product = result.Entity;
+            return View();
         }
 
         [HttpGet("/[controller]/add")]

@@ -8,6 +8,7 @@ namespace Comm.API.Infrastructure
 {
     public class LoginFilter : Attribute, IActionFilter
     {
+        public int MaxRequestPerSecond { get; set; } = 3;
         private readonly IMemoryCache memoryCache;
         public LoginFilter(IMemoryCache _memoryCache)
         {

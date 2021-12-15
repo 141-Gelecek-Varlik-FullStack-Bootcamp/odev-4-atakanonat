@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
@@ -32,17 +33,17 @@ namespace Comm.Service.Product
             return result;
         }
 
-        public List<Common<Model.Product.Product>> GetProducts(PaginationParameters pagination)
+        public List<Common<Model.Product.Product>> GetProducts(PaginationParameters pagination, string sortBy)
         {
             var result = new List<Common<Model.Product.Product>>();
             using (var srv = new CommContext())
             {
                 var dbProducts =
                 srv.Product
-                    .OrderBy(p => p.Name)
                     .Skip((pagination.PageNumber - 1) * pagination.PageSize)
                     .Take(pagination.PageSize)
                     .ToList();
+
                 foreach (var product in dbProducts)
                 {
                     var commonMappedModel = new Common<Model.Product.Product>();

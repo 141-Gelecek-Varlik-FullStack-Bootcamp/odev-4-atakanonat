@@ -15672,6 +15672,11 @@
       "FilePath": "/Users/atakanonat/dev/C#/odev-4/Comm.API/Views/Shared/_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/atakanonat/dev/C#/odev-4/Comm.API/Views/Product/GetProduct.cshtml",
+      "TargetPath": "Views\\Product\\GetProduct.cshtml",
+      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.2"
