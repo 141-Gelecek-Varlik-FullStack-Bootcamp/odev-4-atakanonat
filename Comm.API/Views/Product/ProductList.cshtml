@@ -1,7 +1,7 @@
 @using Comm.Model
 @using Comm.Model.Product
 @{
-    var Products = (List<Common<Product>>)ViewBag.Products;
+    var Products = (Common<List<Product>>)ViewBag.Products;
     ViewData["title"] = "Product List";
 }
 
@@ -16,18 +16,18 @@
         </div>
     </form>
     <br />
-    @foreach (var product in Products)
+    @foreach (var product in Products.Entity)
     {
         <ul>
-            <p><b>Product: </b>@product.Entity.Name</p>
+            <p><b>Product: </b>@product.Name</p>
             <li>
-                <p>Description:@product.Entity.Description</p>
+                <p>Description:@product.Description</p>
             </li>
             <li>
-                <p>Stock Count:@product.Entity.Stock</p>
+                <p>Stock Count:@product.Stock</p>
             </li>
             <li>
-                <p>Price:@product.Entity.Price</p>
+                <p>Price:@product.Price</p>
             </li>
         </ul>
         <br />

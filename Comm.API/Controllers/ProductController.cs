@@ -26,7 +26,16 @@ namespace Comm.API.Controllers
         , [FromQuery] string sortBy, [FromQuery] string searchString)
         {
             var result = productService.GetProducts(pagination, sortBy, searchString);
+            // Send returned product data to view page.
             ViewBag.Products = result;
+            if (pagination.PageNumber > result.TotalPages)
+            {
+                return RedirectToAction("", new { pageNumber = result.TotalPages, pageSize = pagination.PageSize });
+            }
+            else if (pagination.PageSize > result.TotalEntity)
+            {
+                return RedirectToAction("", new { pageNumber = 1, pageSize = result.TotalEntity });
+            }
             return View();
         }
 

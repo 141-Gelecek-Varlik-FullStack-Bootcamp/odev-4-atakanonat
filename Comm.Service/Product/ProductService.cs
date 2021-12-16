@@ -33,12 +33,15 @@ namespace Comm.Service.Product
             return result;
         }
 
-        public List<Common<Model.Product.Product>> GetProducts(PaginationParameters pagination, string sortBy, string searchString)
+        public Common<List<Model.Product.Product>> GetProducts(PaginationParameters pagination, string sortBy, string searchString)
         {
-            var result = new List<Common<Model.Product.Product>>();
+            var result = new Common<List<Model.Product.Product>>();
             using (var srv = new CommContext())
             {
                 var dbProducts = from p in srv.Product select p;
+                var totalProduct = dbProducts.Count();
+                result.TotalEntity = totalProduct;
+                result.TotalPages = totalProduct % pagination.PageSize == 0 ? totalProduct / pagination.PageSize : totalProduct / pagination.PageSize + 1;
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     dbProducts = dbProducts.Where(p => p.Name.Contains(searchString));
@@ -69,13 +72,11 @@ namespace Comm.Service.Product
                     .Skip((pagination.PageNumber - 1) * pagination.PageSize)
                     .Take(pagination.PageSize)
                     .ToList();
+                result.Entity = new List<Model.Product.Product>();
                 foreach (var product in Products)
                 {
-                    var commonMappedModel = new Common<Model.Product.Product>();
                     var mappedProduct = mapper.Map<Model.Product.Product>(product);
-                    commonMappedModel.Entity = mappedProduct;
-                    commonMappedModel.IsSuccess = true;
-                    result.Add(commonMappedModel);
+                    result.Entity.Add(mappedProduct);
                 }
             }
 
