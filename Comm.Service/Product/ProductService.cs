@@ -38,13 +38,34 @@ namespace Comm.Service.Product
             var result = new List<Common<Model.Product.Product>>();
             using (var srv = new CommContext())
             {
-                var dbProducts =
-                srv.Product
+                var dbProducts = from p in srv.Product select p;
+                switch (sortBy)
+                {
+                    case "name_desc":
+                        dbProducts = dbProducts.OrderByDescending(p => p.Name);
+                        break;
+                    case "Price":
+                        dbProducts = dbProducts.OrderBy(p => p.Price);
+                        break;
+                    case "price_desc":
+                        dbProducts = dbProducts.OrderByDescending(p => p.Price);
+                        break;
+                    case "Idate":
+                        dbProducts = dbProducts.OrderBy(p => p.Idate);
+                        break;
+                    case "idate_desc":
+                        dbProducts = dbProducts.OrderByDescending(p => p.Idate);
+                        break;
+                    default:
+                        dbProducts = dbProducts.OrderBy(p => p.Name);
+                        break;
+                }
+                var Products =
+                dbProducts
                     .Skip((pagination.PageNumber - 1) * pagination.PageSize)
                     .Take(pagination.PageSize)
                     .ToList();
-
-                foreach (var product in dbProducts)
+                foreach (var product in Products)
                 {
                     var commonMappedModel = new Common<Model.Product.Product>();
                     var mappedProduct = mapper.Map<Model.Product.Product>(product);
