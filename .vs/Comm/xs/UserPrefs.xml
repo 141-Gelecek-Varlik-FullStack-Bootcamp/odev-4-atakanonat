@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{765B7C4B-8FFE-4601-86D2-F0A2C8B3A127}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Comm.API/Infrastructure/LoginFilter.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Comm.Service/Product/ProductService.cs">
     <Files>
-      <File FileName="Comm.API/Infrastructure/LoginFilter.cs" Line="5" Column="43" />
+      <File FileName="Comm.API/Controllers/ProductController.cs" Line="74" Column="76" />
+      <File FileName="Comm.Service/Product/ProductService.cs" Line="114" Column="97" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -9,8 +10,9 @@
           <Node name="Comm" expanded="True">
             <Node name="Comm.API" expanded="True">
               <Node name="Controllers" expanded="True" />
-              <Node name="Infrastructure" expanded="True">
-                <Node name="LoginFilter.cs" selected="True" />
+              <Node name="Infrastructure" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Product" expanded="True" />
               </Node>
             </Node>
             <Node name="Comm.DB" expanded="True">
@@ -18,12 +20,20 @@
                 <Node name="DbContext" expanded="True" />
               </Node>
             </Node>
+            <Node name="Comm.Model" expanded="True">
+              <Node name="Product" expanded="True" />
+            </Node>
+            <Node name="Comm.Service" expanded="True">
+              <Node name="Product" expanded="True">
+                <Node name="ProductService.cs" selected="True" />
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Comm.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.ItemProperties.Comm.API PreferredExecutionTarget="/Applications/Firefox Developer Edition.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

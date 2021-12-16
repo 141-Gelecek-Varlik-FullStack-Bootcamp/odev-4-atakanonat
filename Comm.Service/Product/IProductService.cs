@@ -8,7 +8,7 @@ namespace Comm.Service.Product
         Common<Model.Product.Product> Get(int id);
         Common<List<Model.Product.Product>> GetProducts(Model.Pagination.PaginationParameters pagination, string sortBy, string searchString);
         Common<Model.Product.Product> Add(Model.Product.Product newProduct);
-        bool Update();
+        Common<Model.Product.Product> Update(Model.Product.Product updatedProduct);
         bool Delete();
     }
 }

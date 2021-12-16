@@ -5,12 +5,11 @@ using Comm.Model;
 using Comm.Model.Pagination;
 using Comm.Service.Product;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Comm.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
     public class ProductController : Controller
     {
         private readonly IProductService productService;
@@ -60,6 +59,23 @@ namespace Comm.API.Controllers
         {
             var result = productService.Add(newProduct);
             return result;
+        }
+
+        [HttpGet("/[controller]/{id}/update")]
+        public IActionResult ProductUpdateForm(int id)
+        {
+            var result = productService.Get(id);
+            ViewBag.Product = result;
+            return View();
+        }
+
+        [HttpPost("/[controller]/{id}")]
+        // [ServiceFilter(typeof(LoginFilter))]
+        public IActionResult UpdateProduct([FromForm] Model.Product.Product updatedProduct, int id)
+        {
+            updatedProduct.Id = id;
+            productService.Update(updatedProduct);
+            return RedirectToAction(id.ToString(), "Product");
         }
     }
 }

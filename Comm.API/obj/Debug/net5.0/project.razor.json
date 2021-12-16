@@ -15639,6 +15639,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/atakanonat/dev/C#/odev-4/Comm.API/Views/Product/ProductUpdateForm.cshtml",
+      "TargetPath": "Views\\Product\\ProductUpdateForm.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/atakanonat/dev/C#/odev-4/Comm.API/Views/_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"

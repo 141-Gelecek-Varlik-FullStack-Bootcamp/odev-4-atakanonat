@@ -100,9 +100,33 @@ namespace Comm.Service.Product
             return result;
         }
 
-        public bool Update()
+        public Common<Model.Product.Product> Update(Model.Product.Product updatedProduct)
         {
-            var result = false;
+            var result = new Common<Model.Product.Product>() { IsSuccess = false };
+            var mappedProduct = mapper.Map<DB.Entities.Product>(updatedProduct);
+            using (var srv = new CommContext())
+            {
+                try
+                {
+                    srv.Database.BeginTransaction();
+                    var dbProduct = srv.Product.First(p => p.Id == updatedProduct.Id);
+                    dbProduct.Name = mappedProduct.Name != default ? mappedProduct.Name : dbProduct.Name;
+                    dbProduct.Description = mappedProduct.Description != default ? mappedProduct.Description : dbProduct.Description;
+                    dbProduct.Price = mappedProduct.Price != default ? mappedProduct.Price : dbProduct.Price;
+                    dbProduct.Stock = mappedProduct.Stock != default ? mappedProduct.Stock : dbProduct.Stock;
+                    dbProduct.Udate = mappedProduct.Udate != default ? mappedProduct.Udate : dbProduct.Udate;
+                    srv.SaveChanges();
+                    result.Entity = mapper.Map<Model.Product.Product>(mappedProduct);
+                    result.IsSuccess = true;
+                    srv.Database.CommitTransaction();
+                }
+                catch (Exception e)
+                {
+                    srv.Database.RollbackTransaction();
+                    result.ExceptionMessage = e.Message;
+                }
+            }
+
             return result;
         }
         public bool Delete()

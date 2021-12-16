@@ -5811,7 +5811,7 @@
       "outputPath": "/Users/atakanonat/dev/C#/odev-4/Comm.API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/atakanonat/.nuget/NuGet/NuGet.Config"
+        "/Users/atakanonat/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
