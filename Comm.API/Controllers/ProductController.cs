@@ -23,9 +23,9 @@ namespace Comm.API.Controllers
 
         [HttpGet("/[controller]")]
         public IActionResult ProductList([FromQuery] PaginationParameters pagination
-        , [FromQuery] string sortBy)
+        , [FromQuery] string sortBy, [FromQuery] string searchString)
         {
-            var result = productService.GetProducts(pagination, sortBy);
+            var result = productService.GetProducts(pagination, sortBy, searchString);
             ViewBag.Products = result;
             return View();
         }

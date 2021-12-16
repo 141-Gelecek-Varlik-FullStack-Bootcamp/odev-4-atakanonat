@@ -33,12 +33,16 @@ namespace Comm.Service.Product
             return result;
         }
 
-        public List<Common<Model.Product.Product>> GetProducts(PaginationParameters pagination, string sortBy)
+        public List<Common<Model.Product.Product>> GetProducts(PaginationParameters pagination, string sortBy, string searchString)
         {
             var result = new List<Common<Model.Product.Product>>();
             using (var srv = new CommContext())
             {
                 var dbProducts = from p in srv.Product select p;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    dbProducts = dbProducts.Where(p => p.Name.Contains(searchString));
+                }
                 switch (sortBy)
                 {
                     case "name_desc":
