@@ -24,7 +24,7 @@ namespace Comm.API.Infrastructure
         {
             if (!(memoryCache.TryGetValue(key: "LoggedUser", out Comm.Model.Common<Model.User.User> user)))
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { Controller = "User", Action = "login" }));
+                context.HttpContext.Response.Redirect("https://localhost:5003/User/login");
             }
         }
     }

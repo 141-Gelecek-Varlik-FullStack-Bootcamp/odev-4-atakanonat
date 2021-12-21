@@ -73,6 +73,7 @@ namespace Comm.Service.Product
                     .Take(pagination.PageSize)
                     .ToList();
                 result.Entity = new List<Model.Product.Product>();
+                result.IsSuccess = true;
                 foreach (var product in Products)
                 {
                     var mappedProduct = mapper.Map<Model.Product.Product>(product);
@@ -109,7 +110,7 @@ namespace Comm.Service.Product
                 try
                 {
                     srv.Database.BeginTransaction();
-                    var dbProduct = srv.Product.First(p => p.Id == updatedProduct.Id);
+                    var dbProduct = srv.Product.Find(updatedProduct.Id);
                     dbProduct.Name = mappedProduct.Name != default ? mappedProduct.Name : dbProduct.Name;
                     dbProduct.Description = mappedProduct.Description != default ? mappedProduct.Description : dbProduct.Description;
                     dbProduct.Price = mappedProduct.Price != default ? mappedProduct.Price : dbProduct.Price;

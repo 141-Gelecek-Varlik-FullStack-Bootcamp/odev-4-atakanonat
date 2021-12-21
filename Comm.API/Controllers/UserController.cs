@@ -1,5 +1,5 @@
 using System;
-using Comm.API.Infrastructure;
+using Comm.Model;
 using Comm.Model.User;
 using Comm.Service.User;
 using Microsoft.AspNetCore.Mvc;
@@ -7,9 +7,9 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Comm.API.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         private readonly IUserService userService;
         private readonly IMemoryCache memoryCache;
@@ -19,31 +19,18 @@ namespace Comm.API.Controllers
             memoryCache = _memoryCache;
         }
 
-        [HttpGet("/[controller]/register")]
-        public IActionResult RegisterForm()
+        [HttpPost("/api/[controller]/register")]
+        public Common<Model.User.User> Register([FromForm] User newUser)
         {
-            return View();
+            return userService.Register(newUser);
         }
 
-        [HttpPost("/[controller]/register")]
-        public IActionResult Register([FromForm] User newUser)
-        {
-            var result = userService.Register(newUser);
-            return Redirect("/User/login");
-        }
-
-        [HttpGet("/[controller]/login")]
-        public IActionResult LoginForm()
-        {
-            return View();
-        }
-
-        [HttpPost("/[controller]/login")]
-        public Comm.Model.Common<Model.User.User> Login([FromForm] UserLogin user)
+        [HttpPost("/api/[controller]/login")]
+        public IActionResult Login([FromBody] UserLogin user)
         {
             var result = userService.Login(user);
             memoryCache.Set(key: "LoggedUser", result);
-            return result;
+            return Ok(result.Entity);
         }
     }
 }

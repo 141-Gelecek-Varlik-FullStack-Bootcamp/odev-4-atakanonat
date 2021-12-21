@@ -1,16 +1,17 @@
-using System;
 using System.Collections.Generic;
+using System.Text.Json;
 using Comm.API.Infrastructure;
 using Comm.Model;
 using Comm.Model.Pagination;
 using Comm.Service.Product;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Comm.API.Controllers
 {
-    public class ProductController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService productService;
         private readonly IMemoryCache memoryCache;
@@ -20,62 +21,33 @@ namespace Comm.API.Controllers
             memoryCache = _memoryCache;
         }
 
-        [HttpGet("/[controller]")]
+        [HttpGet("/api/[controller]")]
         public IActionResult ProductList([FromQuery] PaginationParameters pagination
         , [FromQuery] string sortBy, [FromQuery] string searchString)
         {
-            var result = productService.GetProducts(pagination, sortBy, searchString);
-            // Send returned product data to view page.
-            ViewBag.Products = result;
-            if (pagination.PageNumber > result.TotalPages)
-            {
-                return RedirectToAction("", new { pageNumber = result.TotalPages, pageSize = pagination.PageSize });
-            }
-            else if (pagination.PageSize > result.TotalEntity)
-            {
-                return RedirectToAction("", new { pageNumber = 1, pageSize = result.TotalEntity });
-            }
-            return View();
+            var result = JsonSerializer.Serialize(productService.GetProducts(pagination, sortBy, searchString));
+            return Ok(result);
         }
 
-        [HttpGet("/[controller]/{id}")]
+        [HttpGet("/api/[controller]/{id}")]
         public IActionResult GetProduct(int id)
         {
-            var result = productService.Get(id);
-            ViewBag.Product = result.Entity;
-            return View();
+            var result = JsonSerializer.Serialize(productService.Get(id).Entity);
+            return Ok(result);
         }
 
-        [HttpGet("/[controller]/add")]
+        [HttpPost("/api/[controller]")]
         [ServiceFilter(typeof(LoginFilter))]
-        public IActionResult ProductAddForm()
+        public Model.Product.Product AddProduct([FromForm] Model.Product.Product newProduct)
         {
-            return View();
+            return productService.Add(newProduct).Entity;
         }
 
-        [HttpPost("/[controller]/add")]
-        [ServiceFilter(typeof(LoginFilter))]
-        public Common<Model.Product.Product> AddProduct([FromForm] Model.Product.Product newProduct)
-        {
-            var result = productService.Add(newProduct);
-            return result;
-        }
-
-        [HttpGet("/[controller]/{id}/update")]
-        public IActionResult ProductUpdateForm(int id)
-        {
-            var result = productService.Get(id);
-            ViewBag.Product = result;
-            return View();
-        }
-
-        [HttpPost("/[controller]/{id}")]
+        [HttpPost("/api/[controller]/{id}")]
         // [ServiceFilter(typeof(LoginFilter))]
-        public IActionResult UpdateProduct([FromForm] Model.Product.Product updatedProduct, int id)
+        public Common<Model.Product.Product> UpdateProduct([FromForm] Model.Product.Product updatedProduct)
         {
-            updatedProduct.Id = id;
-            productService.Update(updatedProduct);
-            return RedirectToAction(id.ToString(), "Product");
+            return productService.Update(updatedProduct);
         }
     }
 }
