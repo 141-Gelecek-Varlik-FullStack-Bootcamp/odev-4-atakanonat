@@ -1,5 +1,4 @@
 using System;
-using Comm.API.Infrastructure;
 using Comm.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +7,7 @@ using System.Text.Json;
 using Comm.Model.Pagination;
 using System.Collections.Generic;
 using System.Text;
+using Comm.Web.Infrastructure;
 
 namespace Comm.API.Controllers
 {

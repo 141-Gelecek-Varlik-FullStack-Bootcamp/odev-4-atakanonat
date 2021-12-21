@@ -14,7 +14,7 @@
         "outputPath": "/Users/atakanonat/dev/C#/odev-4/Comm.DB/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/atakanonat/.config/NuGet/NuGet.Config"
+          "/Users/atakanonat/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -82,7 +82,7 @@
         "outputPath": "/Users/atakanonat/dev/C#/odev-4/Comm.Model/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/atakanonat/.config/NuGet/NuGet.Config"
+          "/Users/atakanonat/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -134,7 +134,7 @@
         "outputPath": "/Users/atakanonat/dev/C#/odev-4/Comm.Service/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/atakanonat/.config/NuGet/NuGet.Config"
+          "/Users/atakanonat/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

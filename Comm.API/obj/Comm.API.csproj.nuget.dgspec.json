@@ -14,7 +14,7 @@
         "outputPath": "/Users/atakanonat/dev/C#/odev-4/Comm.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/atakanonat/.config/NuGet/NuGet.Config"
+          "/Users/atakanonat/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -51,6 +51,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[10.1.1, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[6.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -89,7 +93,7 @@
         "outputPath": "/Users/atakanonat/dev/C#/odev-4/Comm.DB/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/atakanonat/.config/NuGet/NuGet.Config"
+          "/Users/atakanonat/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -157,7 +161,7 @@
         "outputPath": "/Users/atakanonat/dev/C#/odev-4/Comm.Model/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/atakanonat/.config/NuGet/NuGet.Config"
+          "/Users/atakanonat/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -209,7 +213,7 @@
         "outputPath": "/Users/atakanonat/dev/C#/odev-4/Comm.Service/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/atakanonat/.config/NuGet/NuGet.Config"
+          "/Users/atakanonat/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"

@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{1237F1B1-3691-4DD0-9F43-7C1754A48ABF}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Comm.Web/Controllers/UserController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Comm.Web/Infrastructure/LoginFilter.cs">
     <Files>
-      <File FileName="Comm.API/Controllers/UserController.cs" Line="33" Column="38" />
-      <File FileName="Comm.Web/Controllers/UserController.cs" Line="49" Column="28" />
+      <File FileName="Comm.Web/Controllers/ProductController.cs" Line="80" Column="45" />
+      <File FileName="Comm.API/Controllers/UserController.cs" Line="39" Column="83" />
+      <File FileName="Comm.Web/Infrastructure/LoginFilter.cs" Line="26" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,8 +17,9 @@
               <Node name="Product" expanded="True" />
             </Node>
             <Node name="Comm.Web" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="UserController.cs" selected="True" />
+              <Node name="Controllers" expanded="True" />
+              <Node name="Infrastructure" expanded="True">
+                <Node name="LoginFilter.cs" selected="True" />
               </Node>
               <Node name="Views" expanded="True">
                 <Node name="Product" expanded="True" />
@@ -28,7 +30,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.Comm.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.ItemProperties.Comm.Web PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

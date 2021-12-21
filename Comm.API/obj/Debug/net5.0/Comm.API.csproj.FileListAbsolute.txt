@@ -63,3 +63,13 @@
 /Users/atakanonat/dev/C#/odev-4/Comm.API/obj/Debug/net5.0/ref/Comm.API.dll
 /Users/atakanonat/dev/C#/odev-4/Comm.API/obj/Debug/net5.0/Comm.API.pdb
 /Users/atakanonat/dev/C#/odev-4/Comm.API/obj/Debug/net5.0/Comm.API.genruntimeconfig.cache
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/Microsoft.Extensions.Options.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/Microsoft.Extensions.Primitives.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/Pipelines.Sockets.Unofficial.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/StackExchange.Redis.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/System.Diagnostics.PerformanceCounter.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/System.Runtime.CompilerServices.Unsafe.dll
+/Users/atakanonat/dev/C#/odev-4/Comm.API/bin/Debug/net5.0/runtimes/win/lib/netcoreapp2.0/System.Diagnostics.PerformanceCounter.dll

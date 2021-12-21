@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using Comm.API.Infrastructure;
+using Comm.Web.Infrastructure;
 using Comm.Model.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -50,6 +50,18 @@ namespace Comm.API.Controllers
                 }
             }
             return RedirectToAction("login", "User");
+        }
+
+        [HttpGet("/[controller]/logout")]
+        [ServiceFilter(typeof(LoginFilter))]
+        public IActionResult Logout()
+        {
+            using (var client = new HttpClient())
+            {
+                var getTask = client.GetAsync("https://localhost:5001/api/User/logout");
+                getTask.Wait();
+                return RedirectToAction("", "Product");
+            }
         }
     }
 }

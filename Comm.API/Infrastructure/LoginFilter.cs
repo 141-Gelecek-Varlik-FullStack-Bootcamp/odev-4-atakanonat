@@ -1,28 +1,28 @@
 using System;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace Comm.API.Infrastructure
 {
     public class LoginFilter : Attribute, IActionFilter
     {
         public int MaxRequestPerSecond { get; set; } = 3;
-        private readonly IMemoryCache memoryCache;
-        public LoginFilter(IMemoryCache _memoryCache)
+        private readonly IDistributedCache _distributedCache;
+        public LoginFilter(IDistributedCache distributedCache)
         {
-            memoryCache = _memoryCache;
+            _distributedCache = distributedCache;
         }
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            memoryCache.TryGetValue(key: "LoggedUser", out Comm.Model.Common<Model.User.User> userLog);
+            var userLog = _distributedCache.GetAsync(key: "LoggedUser");
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            if (!(memoryCache.TryGetValue(key: "LoggedUser", out Comm.Model.Common<Model.User.User> user)))
+            var userFromCache = _distributedCache.GetAsync(key: "LoggedUser");
+            userFromCache.Wait();
+            if (userFromCache.Result is null)
             {
                 context.HttpContext.Response.Redirect("https://localhost:5003/User/login");
             }

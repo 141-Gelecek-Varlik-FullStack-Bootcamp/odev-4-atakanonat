@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Comm.API.Infrastructure;
+using Comm.Web.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,7 +25,12 @@ namespace Comm.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDistributedMemoryCache();
             services.AddScoped<LoginFilter>();
+            services.AddStackExchangeRedisCache(action =>
+            {
+                action.Configuration = "localhost:6379";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
