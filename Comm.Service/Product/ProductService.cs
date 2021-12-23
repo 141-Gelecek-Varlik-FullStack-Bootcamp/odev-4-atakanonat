@@ -21,7 +21,7 @@ namespace Comm.Service.Product
             if (id < 0) return result;
             using (var srv = new CommContext())
             {
-                var dbProduct = srv.Product.SingleOrDefault(p => p.Id == id);
+                var dbProduct = srv.Product.SingleOrDefault(p => p.Id == id && p.IsDeleted == false);
                 if (dbProduct is not null)
                 {
                     var mappedProduct = mapper.Map<Model.Product.Product>(dbProduct);
@@ -38,7 +38,7 @@ namespace Comm.Service.Product
             var result = new Common<List<Model.Product.Product>>();
             using (var srv = new CommContext())
             {
-                var dbProducts = from p in srv.Product select p;
+                var dbProducts = from p in srv.Product where p.IsDeleted == false select p;
                 var totalProduct = dbProducts.Count();
                 result.TotalEntity = totalProduct;
                 result.TotalPages = totalProduct % pagination.PageSize == 0 ? totalProduct / pagination.PageSize : totalProduct / pagination.PageSize + 1;
@@ -110,7 +110,7 @@ namespace Comm.Service.Product
                 try
                 {
                     srv.Database.BeginTransaction();
-                    var dbProduct = srv.Product.Find(updatedProduct.Id);
+                    var dbProduct = srv.Product.SingleOrDefault(p => p.Id == updatedProduct.Id && p.IsDeleted == false);
                     dbProduct.Name = mappedProduct.Name != default ? mappedProduct.Name : dbProduct.Name;
                     dbProduct.Description = mappedProduct.Description != default ? mappedProduct.Description : dbProduct.Description;
                     dbProduct.Price = mappedProduct.Price != default ? mappedProduct.Price : dbProduct.Price;

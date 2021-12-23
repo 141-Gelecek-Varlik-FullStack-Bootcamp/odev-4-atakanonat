@@ -2,14 +2,14 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Comm.Web/Infrastructure/LoginFilter.cs">
     <Files>
       <File FileName="Comm.Web/Controllers/ProductController.cs" Line="80" Column="45" />
-      <File FileName="Comm.API/Controllers/UserController.cs" Line="39" Column="83" />
+      <File FileName="Comm.API/Controllers/UserController.cs" />
       <File FileName="Comm.Web/Infrastructure/LoginFilter.cs" Line="26" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="Comm" expanded="True">
-            <Node name="Comm.API" expanded="True">
+            <Node name="Comm.API" expanded="True" selected="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Infrastructure" expanded="True" />
             </Node>
@@ -18,9 +18,7 @@
             </Node>
             <Node name="Comm.Web" expanded="True">
               <Node name="Controllers" expanded="True" />
-              <Node name="Infrastructure" expanded="True">
-                <Node name="LoginFilter.cs" selected="True" />
-              </Node>
+              <Node name="Infrastructure" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Product" expanded="True" />
               </Node>

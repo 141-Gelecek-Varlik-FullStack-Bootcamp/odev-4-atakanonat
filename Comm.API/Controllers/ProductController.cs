@@ -3,6 +3,7 @@ using System.Text.Json;
 using Comm.API.Infrastructure;
 using Comm.Model;
 using Comm.Model.Pagination;
+using Comm.Service.Email;
 using Comm.Service.Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
@@ -15,16 +16,19 @@ namespace Comm.API.Controllers
     {
         private readonly IProductService _productService;
         private readonly IDistributedCache _distributedCache;
-        public ProductController(IProductService productService, IDistributedCache distributedCache)
+        private readonly HangfireJobs _hangfireJobs;
+        public ProductController(IProductService productService, IDistributedCache distributedCache, IEmailService emailService)
         {
             _productService = productService;
             _distributedCache = distributedCache;
+            _hangfireJobs = new HangfireJobs(emailService);
         }
 
         [HttpGet("/api/[controller]")]
         public IActionResult ProductList([FromQuery] PaginationParameters pagination
         , [FromQuery] string sortBy, [FromQuery] string searchString)
         {
+            _hangfireJobs.SendWelcomeMail("ontatakan", "SendToUser@hotmail.com");
             var result = JsonSerializer.Serialize(_productService.GetProducts(pagination, sortBy, searchString));
             return Ok(result);
         }
@@ -38,16 +42,17 @@ namespace Comm.API.Controllers
 
         [HttpPost("/api/[controller]")]
         [ServiceFilter(typeof(LoginFilter))]
-        public Model.Product.Product AddProduct([FromForm] Model.Product.Product newProduct)
+        public IActionResult AddProduct([FromBody] Model.Product.Product newProduct)
         {
-            return _productService.Add(newProduct).Entity;
+            return Ok(_productService.Add(newProduct).Entity);
         }
 
-        [HttpPost("/api/[controller]/{id}")]
-        // [ServiceFilter(typeof(LoginFilter))]
-        public Common<Model.Product.Product> UpdateProduct([FromForm] Model.Product.Product updatedProduct)
+        [HttpPut("/api/[controller]/{id}")]
+        [ServiceFilter(typeof(LoginFilter))]
+        public IActionResult UpdateProduct([FromBody] Model.Product.Product updatedProduct)
         {
-            return _productService.Update(updatedProduct);
+            var result = _productService.Update(updatedProduct);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }
 }

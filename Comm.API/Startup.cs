@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Comm.API.Infrastructure;
+using Comm.Service.Email;
 using Comm.Service.Product;
 using Comm.Service.User;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,14 +17,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 
 namespace Comm.API
 {
     public class Startup
     {
+        public static ConnectionMultiplexer Redis;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Redis = ConnectionMultiplexer.Connect("localhost:6379");
         }
 
         public IConfiguration Configuration { get; }
@@ -30,7 +35,6 @@ namespace Comm.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -40,6 +44,7 @@ namespace Comm.API
             var _mapper = _mappingProfile.CreateMapper();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IEmailService, EmailService>();
             services.AddSingleton(_mapper);
             services.AddControllersWithViews();
             services.AddDistributedMemoryCache();
@@ -48,6 +53,11 @@ namespace Comm.API
             {
                 action.Configuration = "localhost:6379";
             });
+            services.AddHangfire(configuration =>
+            {
+                configuration.UseRedisStorage(Redis);
+            });
+            services.AddHangfireServer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +70,10 @@ namespace Comm.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Comm.API v1"));
             }
 
+            app.UseHangfireServer();
+
+            app.UseHangfireDashboard();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -69,6 +83,7 @@ namespace Comm.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
             });
         }
     }

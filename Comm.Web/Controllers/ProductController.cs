@@ -87,9 +87,6 @@ namespace Comm.API.Controllers
         [ServiceFilter(typeof(LoginFilter))]
         public IActionResult AddProduct([FromForm] Model.Product.Product newProduct)
         {
-            // var result = productService.Add(newProduct);
-            // return result;
-
             using (var client = new HttpClient())
             {
                 var stringContent = new StringContent(JsonSerializer.Serialize(newProduct), Encoding.UTF8, "application/json");
@@ -105,21 +102,46 @@ namespace Comm.API.Controllers
             return RedirectToAction("");
         }
 
-        //     [HttpGet("/[controller]/{id}/update")]
-        //     public IActionResult ProductUpdateForm(int id)
-        //     {
-        //         var result = productService.Get(id);
-        //         ViewBag.Product = result;
-        //         return View();
-        //     }
+        [HttpGet("/[controller]/{id}/update")]
+        [ServiceFilter(typeof(LoginFilter))]
+        public IActionResult ProductUpdateForm(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                var responseTask = client.GetAsync("https://localhost:5001/api/Product/" + id.ToString());
+                responseTask.Wait();
+                var response = responseTask.Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var readTask = response.Content.ReadAsStringAsync();
+                    readTask.Wait();
+                    ViewBag.Product = JsonSerializer.Deserialize<Model.Product.Product>(readTask.Result);
+                }
+                else
+                {
+                    ViewBag.StatusCode = response.StatusCode;
+                }
+            }
+            return View();
+        }
 
-        //     [HttpPost("/[controller]/{id}")]
-        //     // [ServiceFilter(typeof(LoginFilter))]
-        //     public IActionResult UpdateProduct([FromForm] Model.Product.Product updatedProduct, int id)
-        //     {
-        //         updatedProduct.Id = id;
-        //         productService.Update(updatedProduct);
-        //         return RedirectToAction(id.ToString(), "Product");
-        //     }
+        [HttpPost("/[controller]/{id}")]
+        [ServiceFilter(typeof(LoginFilter))]
+        public IActionResult UpdateProduct([FromForm] Model.Product.Product updatedProduct, int id)
+        {
+            updatedProduct.Id = id;
+            using (var client = new HttpClient())
+            {
+                var stringContent = new StringContent(JsonSerializer.Serialize(updatedProduct), Encoding.UTF8, "application/json");
+                var postTask = client.PutAsync("https://localhost:5001/api/Product/" + id.ToString(), stringContent);
+                postTask.Wait();
+                var response = postTask.Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(id.ToString(), "Product");
+                }
+            }
+            return RedirectToAction(id.ToString() + "update", "Product");
+        }
     }
 }
